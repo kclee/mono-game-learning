@@ -11,6 +11,16 @@ namespace Shooting
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Texture2D target_Sprite;
+
+        // Art assets
+        Texture2D crosshairs_Sprite;
+        Texture2D background_Sprite;
+        SpriteFont gameFont;
+
+        // Variables
+        Vector2 targetPosition = new Vector2(300, 300);
+        const int TARGET_RADIUS = 45;
 
         public Game1()
         {
@@ -40,7 +50,10 @@ namespace Shooting
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            target_Sprite = Content.Load<Texture2D>("target");
+            crosshairs_Sprite = Content.Load<Texture2D>("crosshairs");
+            background_Sprite = Content.Load<Texture2D>("sky");
+            gameFont = Content.Load<SpriteFont>("galleryFont");
         }
 
         /// <summary>
@@ -75,7 +88,13 @@ namespace Shooting
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+
+            spriteBatch.Draw(background_Sprite, new Vector2(0, 0), Color.White);
+            spriteBatch.Draw(target_Sprite, new Vector2(100, 100), Color.White);
+            spriteBatch.DrawString(gameFont, "Score: ", new Vector2(3, 3), Color.White);
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
